@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+<!--<mappers>-->
+   <!--<package name="xiaomifan.maven.mapper"/>-->
+<!--</mappers>-->
+
+    <!--properties可以读取外部属性文件 资源文件-->
+    <!--类路径下-->
+    <!--<properties resource="classpath:resource/dbSource.properties"></properties>-->
+
+<settings>
+    <!--延迟加载-->
+    <setting name="lazyLoadingEnabled" value="true"/>
+    <!--配置加载的数据为按需加载-->
+    <setting name="aggressiveLazyLoading" value="false"/>
+</settings>
+
+    
+</configuration>
