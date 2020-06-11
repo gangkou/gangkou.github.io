@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xiaomifan.maven.mapper.BookMapper">
+    <insert id="insert" parameterType="xiaomifan.maven.pojo.Book">
+        insert into book(bookId,name,price,publisher,author) values (#{bookId},#{name},#{price},#{publisher},#{author})
+    </insert>
+
+    <select id="selectAll" resultType="xiaomifan.maven.pojo.Book">
+        select * from book
+    </select>
+
+    <select id="selectbyid" resultType="xiaomifan.maven.pojo.Book">
+        select * from book where bookId=#{bookId}
+    </select>
+
+    <delete id="delete" parameterType="Integer">
+        delete from book where bookId=#{bookId}
+    </delete>
+
+    <update id="update" parameterType="xiaomifan.maven.pojo.Book">
+        update book set name=#{name},price=#{price},publisher=#{publisher},author=#{author} where bookId=#{bookId}
+    </update>
+
+    <select id="selectbymap" resultType="Map">
+        select * from book where bookId=#{bookId}
+    </select>
+
+    <!--<select id="selectbymapall" resultType="xiaomifan.maven.pojo.Book">   也可以-->
+    <select id="selectbymapall" resultType="Map">
+        select * from book
+    </select>
+
+
+    <!--自定义高级结果集映射-->
+    <select id="selectResultmap" resultMap="resultmaptest">
+        select * from book where bookId=#{bookId}
+    </select>
+    <resultMap id="resultmaptest" type="xiaomifan.maven.pojo.Book">
+        <id column="bookId" property="bookId"/>
+        <result column="name" property="name"/>
+        <result column="price" property="price"/>
+        <result column="publisher" property="publisher"/>
+        <result column="author" property="author"/>
+    </resultMap>
+
+    <!--使用级联的方式完成关联属性的映射-->
+    <select id="selectResultmapjilian" resultMap="resultmapjiliantest">
+        select b.bookId,b.name,b.price,b.publisher,u.username from book b
+        left join user u on b.author=u.username where b.bookId=#{bookId}
+    </select>
+    <resultMap id="resultmapjiliantest" type="xiaomifan.maven.pojo.Book">
+        <id column="bookId" property="bookId"/>
+        <result column="name" property="name"/>
+        <result column="price" property="price"/>
+        <result column="publisher" property="publisher"/>
+        <result column="author" property="user.username"/>
+    </resultMap>
+
+    <!--使用<association>完成普通关联属性的映射-->
+    <select id="selectassociation" resultMap="resultmapguanliantest">
+       select b.bookId,b.name,b.price,b.publisher,u.username,u.userid,u.money from book b
+        left join user u on b.author=u.username where b.bookId=#{bookId}
+    </select>
+    <resultMap id="resultmapguanliantest" type="xiaomifan.maven.pojo.Books">
+        <id column="bookId" property="bookId"/>
+        <result column="name" property="name"/>
+        <result column="price" property="price"/>
+        <result column="publisher" property="publisher"/>
+        <association property="author" javaType="xiaomifan.maven.pojo.User" >
+            <id column="username" property="username"/>
+            <result property="userid" column="userid"/>
+            <result property="money" column="money"/>
+        </association>
+    </resultMap>
+
+    <!--使用<association>进行分步查询-->
+    <select id="selectassociationfenbu" resultMap="resultmapguanlianfenbutest">
+       select * from book where bookId=#{bookId}
+    </select>
+    <resultMap id="resultmapguanlianfenbutest" type="xiaomifan.maven.pojo.Books">
+        <id column="bookId" property="bookId"/>
+        <result column="name" property="name"/>
+        <result column="price" property="price"/>
+        <result column="publisher" property="publisher"/>
+        <association property="author" select="xiaomifan.maven.mapper.UserMapper.selectbyusername" column="author" >
+        </association>
+    </resultMap>
+
+   <!--集合类型关联属性-->
+    <select id="selectcollection" resultMap="resultmapjihetest">
+       select b.bookId,b.name,b.price,b.publisher,u.username,u.userid,u.money from book b
+        left join user u on b.author=u.username where b.bookId=#{bookId}
+    </select>
+    <resultMap id="resultmapjihetest" type="xiaomifan.maven.pojo.Books">
+        <id column="bookId" property="bookId"/>
+        <result column="name" property="name"/>
+        <result column="price" property="price"/>
+        <result column="publisher" property="publisher"/>
+        <collection property="author" ofType="xiaomifan.maven.pojo.User">
+            <id column="username" property="username"/>
+            <result property="userid" column="userid"/>
+            <result property="money" column="money"/>
+        </collection>
+    </resultMap>
+
+    <!--集合类型属性分步查询-->
+    <select id="selectcollectionfenbu" resultMap="jihefenbutest">
+      select * from book where bookId=#{bookId}
+    </select>
+    <resultMap id="jihefenbutest" type="xiaomifan.maven.pojo.Books">
+    <id column="bookId" property="bookId"/>
+    <result column="name" property="name"/>
+    <result column="price" property="price"/>
+    <result column="publisher" property="publisher"/>
+    <collection property="author" ofType="xiaomifan.maven.pojo.User" select="xiaomifan.maven.mapper.UserMapper.selectbyusername" column="author">
+    </collection>
+    </resultMap>
+</mapper>
