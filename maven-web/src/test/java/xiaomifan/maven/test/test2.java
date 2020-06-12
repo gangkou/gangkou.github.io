@@ -102,4 +102,14 @@ public class test2 {
         log.debug("log debug..");
         log.info("log info..");
     }
+    @Test
+    public void testLoger(){
+
+        final Logger logger = Logger.getLogger("TestErrOut");
+        logger.debug(" This is debug!!!");
+        logger.info(" This is info!!!");
+        logger.warn(" This is warn!!!");
+        logger.error(" This is error!!!");
+        logger.fatal(" This is fatal!!!");
+    }
 }
