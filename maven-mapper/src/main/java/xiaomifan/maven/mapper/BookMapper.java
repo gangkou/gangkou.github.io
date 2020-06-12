@@ -35,5 +35,13 @@ public interface BookMapper {
     *动态sql
      */
     List<Book> selectDynamicsql(Book book);
+    void updateDynamicsql(Book book);
+    List<Book> selectDynamicsqlchoose(Book book);
+
+    List<Book> selectDynamicsqlforeach(List<Integer> list);
+    List<Book> selectDynamicsqlforeachwhere(List<Integer> list);
+
+    void insertmore(List<Book> list);
+    void insertmoremore(List<Book> list);
 }
 

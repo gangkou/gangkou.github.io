@@ -132,6 +132,73 @@
              author like #{author}
         </if>
         </trim>
-
     </select>
+    <!--动态sql-修改-->
+    <update id="updateDynamicsql" parameterType="xiaomifan.maven.pojo.Book">
+        update book
+        <set>
+        <if test="name!=null">
+            name=#{name},
+        </if>
+        <if test="price!=0">
+            price=#{price},
+        </if>
+        <if test="publisher!=null">
+            publisher=#{publisher},
+        </if>
+        <if test="author!=null">
+            author=#{author},
+        </if>
+        </set>
+        where bookId=#{bookId}
+    </update>
+
+    <select id="selectDynamicsqlchoose" resultType="xiaomifan.maven.pojo.Book">
+        select * from book where
+           <choose>
+               <when test="bookId!=null">
+                   bookId= #{bookId}
+               </when>
+               <when test="publisher!=null">
+                    publisher like #{publisher}
+               </when>
+               <when test="author!=null">
+                   author like #{author}
+               </when>
+               <otherwise>
+                   price>50
+               </otherwise>
+           </choose>
+    </select>
+
+    <select id="selectDynamicsqlforeach" resultType="xiaomifan.maven.pojo.Book">
+     select * from book where bookId in
+     <foreach collection="list" item="bookId" separator="," open="(" close=")">
+         #{bookId}
+     </foreach>
+    </select>
+
+
+    <select id="selectDynamicsqlforeachwhere" resultType="xiaomifan.maven.pojo.Book">
+        select * from book
+        <where>
+            booKId=
+        <foreach collection="list" item="bookId" separator="or" >
+            #{bookId}
+        </foreach>
+        </where>
+    </select>
+    <!--批量增加方式1-->
+    <insert id="insertmore" >
+        insert into book(name,price,publisher,author) values
+        <foreach collection="list" item="book" separator="," >
+            (#{book.name},#{book.price},#{book.publisher},#{book.author})
+        </foreach>
+    </insert>
+    <!--批量增加方式2-->
+    <insert id="insertmoremore" >
+        <foreach collection="list" item="book"  index="index" separator=";" >
+            insert into book(name,price,publisher,author) values (#{book.name},#{book.price},#{book.publisher},#{book.author})
+        </foreach>
+    </insert>
 </mapper>

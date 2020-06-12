@@ -111,15 +111,11 @@
         <version>${jsp.version}</version>
       </dependency>
 
+      <!--已在子模块web中配置-->
       <!--<dependency>-->
         <!--<groupId>cglib</groupId>-->
         <!--<artifactId>cglib</artifactId>-->
         <!--<version>3.2.4</version>-->
-      <!--</dependency>-->
-      <!--<dependency>-->
-        <!--<groupId>asm.wso2</groupId>-->
-        <!--<artifactId>asm</artifactId>-->
-        <!--<version>3.1.wso2v1</version>-->
       <!--</dependency>-->
     </dependencies>
   </dependencyManagement>

@@ -52,6 +52,16 @@ public class Book {
         this.author = author;
     }
 
+    public Book() {
+    }
+
+    public Book(String name, double price, String publisher, String author) {
+        this.name = name;
+        this.price = price;
+        this.publisher = publisher;
+        this.author = author;
+    }
+
     @Override
     public String toString() {
         return "Book{" +
