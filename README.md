@@ -1,4 +1,4 @@
-# gangkou.github.io
+# gangkou/maven
 ***
 **基于maven的springmvc项目**   
 ***
