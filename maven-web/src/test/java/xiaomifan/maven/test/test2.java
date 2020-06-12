@@ -52,4 +52,13 @@ public class test2 {
 //        System.out.println(this.bookMapper.selectcollection(1));
         System.out.println(this.bookMapper.selectcollectionfenbu(1));
     }
+
+    @Test
+    public void selectDynamicsql(){
+        Book book=new Book();
+        book.setBookId(3);
+        book.setPublisher("哈尔滨出版社");
+        book.setAuthor("叔本华");
+        System.out.println(this.bookMapper.selectDynamicsql(book));
+    }
 }

@@ -30,4 +30,10 @@ public interface BookMapper {
     Books selectassociationfenbu(int bookId);
     Books selectcollection(int bookId);
     Books selectcollectionfenbu(int bookId);
+
+    /**
+    *动态sql
+     */
+    List<Book> selectDynamicsql(Book book);
 }
+

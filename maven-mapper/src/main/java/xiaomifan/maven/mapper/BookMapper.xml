@@ -117,4 +117,21 @@
     <collection property="author" ofType="xiaomifan.maven.pojo.User" select="xiaomifan.maven.mapper.UserMapper.selectbyusername" column="author">
     </collection>
     </resultMap>
+
+    <!--动态sql-->
+    <select id="selectDynamicsql" resultType="xiaomifan.maven.pojo.Book">
+        select * from book
+        <trim prefix="where" suffixOverrides="and">
+            <if test="bookId!=null">
+                bookId= #{bookId} AND
+            </if>
+        <if test="publisher!=null">
+               publisher like #{publisher} AND
+        </if>
+        <if test="author!=null" >
+             author like #{author}
+        </if>
+        </trim>
+
+    </select>
 </mapper>
