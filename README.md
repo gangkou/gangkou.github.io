@@ -1,8 +1,8 @@
-# gangkou/maven
-***
-**基于maven的springmvc项目**   
-***
-*idea开发环境*
+# gangkou/maven  
+***  
+**基于maven的springmvc项目**     
+***  
+*idea开发环境*  
 ***
 版本控制 git的使用
 ***
